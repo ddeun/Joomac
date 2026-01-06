@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.joomac.dao.BoardDAO">
+
+    <select id="selectBoardList" resultType="com.joomac.dto.BoardDTO">
+        SELECT 
+            bno, btitle, bcontent, bdate, bview, bip, mno
+        FROM board 
+        ORDER BY bno DESC
+    </select>
+
+    <select id="selectBoardDetail" parameterType="int" resultType="com.joomac.dto.BoardDTO">
+        SELECT *
+        FROM board
+        WHERE bno = #{bno}
+    </select>
+
+    <insert id="insertBoard" parameterType="com.joomac.dto.BoardDTO">
+        INSERT INTO board (
+            bno, btitle, bcontent, bdate, bview, bip, mno
+        ) VALUES (
+            board_seq.NEXTVAL,
+            #{btitle},
+            #{bcontent},
+            SYSDATE,
+            0,#{bip},#{mno})
+    </insert>
+
+    <update id="updateBview" parameterType="int">
+        UPDATE board
+        SET bview = bview + 1
+        WHERE bno = #{bno}
+    </update>
+
+    <update id="updateBoard" parameterType="com.joomac.dto.BoardDTO">
+        UPDATE board
+        SET
+            btitle = #{btitle},
+            bcontent = #{bcontent},
+            bip = #{bip}
+        WHERE bno = #{bno}
+    </update>
+
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM board
+        WHERE bno = #{bno}
+    </delete>
+</mapper>

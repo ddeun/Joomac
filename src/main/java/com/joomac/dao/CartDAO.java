@@ -7,7 +7,7 @@ public interface CartDAO {
 
     int insertCart(CartDTO dto);
 
-    List<CartDTO> selectCartByMember(int mno);
+    List<CartDTO> selectCartList(int mno);
 
     int updateCart(CartDTO dto);
 
