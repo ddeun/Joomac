@@ -24,7 +24,7 @@
             <td>${board.bview}</td>
         </tr>
         <tr>
-            <th>작성자(MNO)</th>
+            <th>작성자(회원번호)</th>
             <td>${board.mno}</td>
             <th>작성일</th>
             <td>${board.bdate}</td>

@@ -11,5 +11,6 @@ public class BoardDTO {
     private Date bdate;
     private int bview;
     private String bip;
+    private String bimage;
     private int mno;   // FK
 }

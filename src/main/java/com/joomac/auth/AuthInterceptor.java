@@ -31,9 +31,16 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         // 권한 체크
-        if (!requiredAuth.equals(loginUser.getMauth())) {
-            response.sendRedirect("/error/403");
-            return false;
+        //if (!requiredAuth.equals(loginUser.getMauth())) {
+        //    response.sendRedirect("/error/403");
+        //    return false;
+        //}
+        
+        if (!"ALL".equals(requiredAuth)) {
+            if (!requiredAuth.equals(loginUser.getMauth())) {
+                response.sendRedirect("/error/403");
+                return false;
+            }
         }
 
         return true;

@@ -2,11 +2,13 @@ package com.joomac.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.joomac.dao.BoardDAO;
 import com.joomac.dto.BoardDTO;
@@ -31,17 +33,24 @@ public class BoardController {
         return "board/detail";
     }
     
- // 1. 작성 페이지 이동
     @GetMapping("/write")
     public String writeForm() {
         return "board/write";
     }
 
-    // 2. 작성 데이터 처리
     @PostMapping("/write")
-    public String write(BoardDTO dto) {
+    public String write(
+            BoardDTO dto,
+            @RequestParam(value = "bimage", required = false) MultipartFile file
+    ) {
+
+        if (file != null && !file.isEmpty()) {
+            String fileName = file.getOriginalFilename();
+            dto.setBip(fileName);
+        }
+
         boardDAO.insertBoard(dto);
-        return "redirect:/board/list"; // 저장 후 목록으로 이동
+        return "redirect:/board/list";
     }
     @GetMapping("/delete")
     public String delete(@RequestParam int bno) {
