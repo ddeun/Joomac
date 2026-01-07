@@ -2,6 +2,7 @@ package com.joomac.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,12 +41,12 @@ public class BoardController {
     @PostMapping("/write")
     public String write(
             BoardDTO dto,
-            @RequestParam("uploadfile") MultipartFile file
+            @RequestParam(value = "bimage", required = false) MultipartFile file
     ) {
 
         if (file != null && !file.isEmpty()) {
             String fileName = file.getOriginalFilename();
-            dto.setBimage(fileName);
+            dto.setBip(fileName);
         }
 
         boardDAO.insertBoard(dto);

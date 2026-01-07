@@ -33,13 +33,13 @@ public class MemberController {
         }
 
         session.setAttribute("loginUser", loginUser);
-        return "redirect:/";
+        return "redirect:/main/index";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/main/main";
+        return "redirect:/main/index";
     }
 
     @GetMapping("/join")
@@ -51,10 +51,5 @@ public class MemberController {
     public String join(MemberDTO dto) {
         memberDAO.insertMember(dto);
         return "redirect:/member/login";
-    }
-    
-    @RequestMapping("/jusopopup")
-    public String jusopopup() {
-    	return "member/jusopopup";
     }
 }

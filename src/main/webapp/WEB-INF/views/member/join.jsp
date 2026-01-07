@@ -6,33 +6,21 @@
 <meta charset="UTF-8">
 <title>주맥 회원가입</title>
 <script>
-function goPopup(){
-	   var pop = window.open("jusopopup","pop","width=570,height=420,scrollbars=yes,resizable=yes")
-	}
-function jusoCallBack(mzipcode, maddr, maddrdetail){
-    // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.]
-    document.member.mzipcode.value = mzipcode;
-    document.member.maddr.value = maddr;
-    document.member.maddrdetail.value = maddrdetail;
-}
 function checkMember() {
    
    let f = document.member;
    
-    let mid = f.mid.value.trim();
+   let mid = f.mid.value.trim();
     let mpasswd = f.mpasswd.value.trim();
     let mname = f.mname.value.trim();
     let mbirth = f.mbirth.value;
-    let mtel = f.mtel.value.replace(/-/g, "");
-    let mzipcode = f.mzipcode.value.trim();
-    let maddr = f.maddr.value.trim();
-    let maddrdetail = f.maddrdetail.value.trim();
+    let mtel = f.mtel.value.trim();
     let memail = f.memail.value.trim();
 
-    let regExpId = /^[a-zA-Z0-9]{4,12}$/;
-    let regExpPw = /^[A-Za-z\d!?@#+]{8,16}$/;
-    let regExpName = /^[가-힣a-zA-Z]{2,}$/;
-    let regExpTel = /^01[016789]\d{7,8}$/;
+   let regExpId = /^[a-zA-Z0-9]{4,12}$/;
+    let regExpPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!?@#+])[A-Za-z\d!?@#+]{8,16}$/;
+    let regExpName = /^[가-힣|a-z|A-Z]$/;
+    let regExpTel = /^01[016789][0-9]{7,8}$/;
     let regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
     
@@ -83,22 +71,19 @@ function checkMember() {
     }
     
     if (!regExpTel.test(mtel)) {
-        alert("전화번호를 올바르게 입력하세요.");
+        alert("전화번호를 입력하세요.);
         f.mtel.focus();
         return false;
     }
 
-    if (mzipcode === "" || maddr === "") {
-        alert("주소 검색을 통해 주소를 입력하세요.");
-        return false;
-    }
   
     if (!regExpEmail.test(memail)) {
         alert("이메일을 입력해주세요.");
         f.memail.focus();
         return false;
     }
-	document.member.submit();
+
+    return true; 
 }
 </script>
 
@@ -108,7 +93,6 @@ function checkMember() {
       <table border="1" width="280" align="center">
          <tr> 
             <td align="center">아이디 : <input type="text" name="mid"></td>
-         </tr>
          <tr>
             <td align="center">비밀번호 : <input type="password" name="mpasswd"></td>
          </tr>
@@ -119,37 +103,22 @@ function checkMember() {
             <td align="center">생년월일 : <input type="date" name="mbirth"></td>
          </tr>
          <tr>
-            <td align="center">성별 : <input type="radio" name="mgender" value="남"> 남
-                    <input type="radio" name="mgender" value="여"> 여
+            <td align="center">성별 : <input type="radio" name="mgender" value="남자"> 남자 
+                    <input type="radio" name="mgender" value="여자"> 여자
             </td>
          </tr>
          <tr>   
             <td align="center">전화번호 : <input type="text" name="mtel"></td>
          </tr>
-         <tr>
-             <td align="center">
-                 우편번호 :
-              <input type="text" name="mzipcode" id="mzipcode" size="6" readonly>
-                 <input type="button" value="주소검색" onclick="goPopup()">
-             </td>
-         </tr>
-         <tr>
-             <td align="center">
-                 주소 :
-                 <input type="text" name="maddr" id="maddr" readonly>
-             </td>
-         </tr>
-         <tr>
-             <td align="center">
-                 상세주소 :
-                 <input type="text" name="maddrdetail" id="maddrdetail" readonly>
-             </td>
+         <tr>   
+            <td align="center">주소 : <input type="text" name="maddr"></td>
          </tr>
          <tr>   
             <td align="center">이메일 : <input type="text" name="memail"></td>
          </tr>
+            <input type="hidden" name="mdate">   
          <tr>
-            <td align="center"><input type="button" value="회원가입" onclick="checkMember()"> <input type="reset" value="취소"></td>
+            <td align="center"><input type="submit" value="회원가입" onclick="return checkmember()"> <input type="reset" value="취소"></td>
          </tr>
       </table>      
    </form>
