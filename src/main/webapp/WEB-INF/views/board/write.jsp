@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <th>이미지</th>
-                <td><input type="file" name="uploadfile"></td>
+                <td><input type="file" name="bimage"></td>
             </tr>
             	<input type="hidden" name="mno" value="1"> 
         </table>
