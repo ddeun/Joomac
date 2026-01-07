@@ -14,7 +14,9 @@
             mname,
             mid,
             mpasswd,
+            mzipcode,
             maddr,
+            maddrdetail,
             mbirth,
             mgender,
             mtel,
@@ -34,7 +36,9 @@
             mname,
             mid,
             mpasswd,
+            mzipcode,
             maddr,
+            maddrdetail,
             mbirth,
             mgender,
             mtel,
@@ -46,7 +50,9 @@
             #{mname},
             #{mid},
             #{mpasswd},
+            #{mzipcode},
             #{maddr},
+            #{maddrdetail},
             #{mbirth},
             #{mgender},
             #{mtel},
@@ -79,7 +85,9 @@
         UPDATE member
         SET
             mname   = #{mname},
+            mzipcode   = #{mzipcode},
             maddr   = #{maddr},
+            maddrdetail   = #{maddrdetail},
             mtel    = #{mtel},
             memail  = #{memail}
         WHERE mno = #{mno}
