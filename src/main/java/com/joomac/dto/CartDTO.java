@@ -9,4 +9,5 @@ public class CartDTO {
 	private int cprice;
 	private int pno;
 	private int ono;
+	private int mno;
 }

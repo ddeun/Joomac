@@ -20,11 +20,12 @@
 
     <insert id="insertBoard" parameterType="com.joomac.dto.BoardDTO">
         INSERT INTO board (
-            bno, btitle, bcontent, bdate, bview, bip, mno
+            bno, btitle, bcontent, bimage, bdate, bview, bip, mno
         ) VALUES (
             board_seq.NEXTVAL,
             #{btitle},
             #{bcontent},
+            #{bimage},
             SYSDATE,
             0,#{bip},#{mno})
     </insert>

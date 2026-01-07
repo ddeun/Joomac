@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 목록</title>
 </head>
 <body>
 <body>
@@ -17,15 +17,13 @@
             <th>번호</th>
             <th>제목</th>
             <th>작성일</th>
-            <th>조회수</th>
         </tr>
     </thead>
     <tbody>
-        <c:forEach var="notice" items="${noticeList}">
+        <c:forEach var="notice" items="${NoticeList}">
             <tr>
-                <td>${board.bno}</td> <td><a href="detail?bno=${board.bno}">${board.btitle}</a></td>
-                <td><fmt:formatDate value="${board.bdate}" pattern="yyyy-MM-dd" /></td> 
-                <td>${board.bview}</td> 
+                <td>${notice.nno}</td> <td><a href="detail?nno=${notice.nno}">${notice.ntitle}</a></td>
+                <td><fmt:formatDate value="${notice.ndate}" pattern="yyyy-MM-dd" /></td> 
            	</tr>
         </c:forEach>
     </tbody>

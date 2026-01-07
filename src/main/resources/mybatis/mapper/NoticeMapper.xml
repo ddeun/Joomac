@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.joomac.dao.NoticeDAO">
+
+    <select id="selectNoticeList" resultType="com.joomac.dto.NoticeDTO">
+        SELECT *
+        FROM notice
+        ORDER BY nno DESC
+    </select>
+
+    <select id="selectNotice" parameterType="int"
+            resultType="com.joomac.dto.NoticeDTO">
+        SELECT *
+        FROM notice
+        WHERE nno = #{nno}
+    </select>
+
+    <insert id="insertNotice" parameterType="com.joomac.dto.NoticeDTO">
+        INSERT INTO notice (ntitle, ncontent, nimage)
+        VALUES (#{ntitle}, #{ncontent}, #{nimage})
+    </insert>
+
+</mapper>
