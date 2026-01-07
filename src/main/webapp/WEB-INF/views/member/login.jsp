@@ -30,7 +30,7 @@ function checkLogin() {
 </head>
 <body style="text-align:center;">
    <h3>로그인</h3>
-   <form name="login" method="post" action="/member/login">
+   <form name="login" method="post" action="/member/login" onsubmit="return checkLogin();">
       <div>
          아이디 : <input type="text" name="mid" placeholder="아이디를 입력하세요.">
       </div>
@@ -39,7 +39,7 @@ function checkLogin() {
       </div>   
       <div>
          <input type="submit" value="로그인">
-         <input type="button" value="회원가입">
+         <input type="button" value="회원가입"  onclick="location.href='/member/join'">
       </div>   
    </form>
 </body>
