@@ -18,6 +18,7 @@
                 <td>주류 가격<br>
                     <input type="text" name="pprice">
                 </td>
+             </tr>
              <tr>
                 <td>알코올<br>
                     <input type="text" name="palcohol">
@@ -35,7 +36,14 @@
             </tr>
             <tr>
                 <td>카테고리<br>
-                    <input type="text" name="pcategory">
+                    <select name="pcategory">
+                   <option value="">선택</option>
+                   <option value="소주/증류주">소주/증류주</option>
+                   <option value="막걸리/탁주">막걸리/탁주</option>
+                   <option value="청주/약주">청주/약주</option>
+                   <option value="과실주">과실주</option>
+                      <option value="기타우리술">기타 우리술</option>
+               </select>
                 </td>    
             </tr>
              <tr>
@@ -44,20 +52,21 @@
                 </td>    
             </tr>
              <tr>
-                <td>상세정보<br>
-                    <input type="text" name="pdetail">
-                </td>    
-            </tr>
-             <tr>
-                <td>안주 추천<br>
-                    <input type="text" name="ppairing">
-                </td>    
-            </tr>
+             <td>상세정보<br>
+                 <textarea name="pdetail" rows="4" cols="40"></textarea>
+               </td>
+         </tr>
+
+         <tr>
+             <td>안주 추천<br>
+              <textarea name="ppairing" rows="2" cols="40"></textarea>
+             </td>
+         </tr>
             
             <tr>
                 <td>
                     <div class="button-group">
-                        <input type="button" value="주류등록" onclick="check()"> 
+                        <input type="submit" value="주류등록"> 
                         <input type="reset" value="등록취소">
                     </div>
                 </td>

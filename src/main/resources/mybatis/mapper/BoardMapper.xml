@@ -12,7 +12,7 @@
         ORDER BY bno DESC
     </select>
 
-    <select id="selectBoardDetail" parameterType="int" resultType="com.joomac.dto.BoardDTO">
+    <select id="selectBoard" parameterType="int" resultType="com.joomac.dto.BoardDTO">
         SELECT *
         FROM board
         WHERE bno = #{bno}
@@ -25,12 +25,14 @@
             board_seq.NEXTVAL,
             #{btitle},
             #{bcontent},
-            #{bimage},
+            #{bimage, jdbcType=VARCHAR},
             SYSDATE,
-            0,#{bip},#{mno})
+            0,
+			#{bip, jdbcType=VARCHAR},
+			#{mno})
     </insert>
 
-    <update id="updateBview" parameterType="int">
+    <update id="updateViewCount" parameterType="int">
         UPDATE board
         SET bview = bview + 1
         WHERE bno = #{bno}
@@ -41,7 +43,8 @@
         SET
             btitle = #{btitle},
             bcontent = #{bcontent},
-            bip = #{bip}
+            bip = #{bip, jdbcType=VARCHAR},
+            bimage = #{bimage, jdbcType=VARCHAR}
         WHERE bno = #{bno}
     </update>
 
