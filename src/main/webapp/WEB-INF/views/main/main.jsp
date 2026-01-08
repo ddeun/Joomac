@@ -26,7 +26,7 @@
                     ${sessionScope.loginUser.mname}님 환영합니다
                 </strong>
                 
-                <a href="/member/myinfo">내정보</a>
+                <a href="/member/mypage">내정보</a>
                 
                 <a href="/member/logout">로그아웃</a>
             </c:otherwise>
