@@ -25,9 +25,11 @@
             board_seq.NEXTVAL,
             #{btitle},
             #{bcontent},
-            #{bimage},
+            #{bimage, jdbcType=VARCHAR},
             SYSDATE,
-            0,#{bip},#{mno})
+            0,
+			#{bip, jdbcType=VARCHAR},
+			#{mno})
     </insert>
 
     <update id="updateBview" parameterType="int">
@@ -41,7 +43,7 @@
         SET
             btitle = #{btitle},
             bcontent = #{bcontent},
-            bip = #{bip}
+            bip = #{bip, jdbcType=VARCHAR} 
         WHERE bno = #{bno}
     </update>
 
