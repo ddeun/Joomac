@@ -5,7 +5,7 @@ import com.joomac.dto.ProductDTO;
 
 public interface ProductDAO {
     int insertProduct(ProductDTO dto);
-    ProductDTO selectProduct(int pno);
+    ProductDTO selectProductDetail(int pno);
     List<ProductDTO> selectProductList();
     List<ProductDTO> selectByCategory(String pcategory);
     int updateProduct(ProductDTO dto);
