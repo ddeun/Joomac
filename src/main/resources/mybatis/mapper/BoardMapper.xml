@@ -12,7 +12,7 @@
         ORDER BY bno DESC
     </select>
 
-    <select id="selectBoardDetail" parameterType="int" resultType="com.joomac.dto.BoardDTO">
+    <select id="selectBoard" parameterType="int" resultType="com.joomac.dto.BoardDTO">
         SELECT *
         FROM board
         WHERE bno = #{bno}
@@ -32,7 +32,7 @@
 			#{mno})
     </insert>
 
-    <update id="updateBview" parameterType="int">
+    <update id="updateViewCount" parameterType="int">
         UPDATE board
         SET bview = bview + 1
         WHERE bno = #{bno}
@@ -43,7 +43,8 @@
         SET
             btitle = #{btitle},
             bcontent = #{bcontent},
-            bip = #{bip, jdbcType=VARCHAR} 
+            bip = #{bip, jdbcType=VARCHAR},
+            bimage = #{bimage, jdbcType=VARCHAR}
         WHERE bno = #{bno}
     </update>
 

@@ -27,9 +27,11 @@ public class MemberController {
     @PostMapping("/login")
     public String login(MemberDTO dto, HttpSession session) {
         MemberDTO loginUser = memberDAO.login(dto);
-        session.setAttribute("mno", loginUser.getMno());
-
-        session.setAttribute("loginUser", loginUser);
+        if(loginUser != null) {
+            // session.setAttribute("mno", loginUser.getMno()); <-- 이 줄을 삭제하거나 주석 처리
+            session.setAttribute("loginUser", loginUser); // 이것만 사용!
+            return "redirect:/";
+        }
         return "redirect:/";
     }
 
