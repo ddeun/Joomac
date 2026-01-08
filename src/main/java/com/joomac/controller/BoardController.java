@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.joomac.dao.BoardDAO;
 import com.joomac.dto.BoardDTO;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -40,9 +43,23 @@ public class BoardController {
     @PostMapping("/write")
     public String write(
             BoardDTO dto,
-            @RequestParam("uploadfile") MultipartFile file
+            @RequestParam("uploadfile") MultipartFile file,
+            HttpServletRequest request,
+            HttpSession session
     ) {
-
+    	Object mnoObj = session.getAttribute("mno");
+    	
+    	String ip = request.getRemoteAddr();
+    	
+    	if (mnoObj == null) {
+            return "redirect:/login"; 
+        }
+    	
+    	int mno = (int) mnoObj;
+        dto.setMno(mno);
+    	
+    	dto.setBip(ip);
+    	
         if (file != null && !file.isEmpty()) {
             String fileName = file.getOriginalFilename();
             dto.setBimage(fileName);
