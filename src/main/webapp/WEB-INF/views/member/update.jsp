@@ -21,7 +21,7 @@
 		<p>이메일 : <input type="text" name="memail" value="${edit.memail}"></p>
 		<p> 
 			<input type="submit" value="회원정보수정">
-			<input type="button" value="수정취소" onclick="history.back();">
+			<input type="button" value="수정취소" onclick="location.href='/member/mypage';">
 		</p>
 	</form>
 </body>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,12 @@ function checkLogin() {
 </script>
 </head>
 <body style="text-align:center;">
+<c:if test="${not empty loginError}">
+    <script>
+        alert("${loginError}");
+    </script>
+    <c:remove var="loginError" scope="session"/>
+</c:if>
    <h3>로그인</h3>
    <form name="login" method="post" action="/member/login" onsubmit="return checkLogin();">
       <div>
