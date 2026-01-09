@@ -5,18 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 상세보기</title>
-<style>
-    table { width: 800px; border-collapse: collapse; margin-top: 20px; }
-    th { width: 150px; background-color: #f4f4f4; padding: 10px; border: 1px solid #ccc; }
-    td { padding: 10px; border: 1px solid #ccc; }
-    .content-box { min-height: 300px; vertical-align: top; }
-    .img-box img { max-width: 500px; height: auto; display: block; margin: 10px 0; }
-</style>
 </head>
 <body>
     <h2>게시글 상세보기</h2>
     
-    <table>
+    <table border=1>
         <tr>
             <th>번호</th>
             <td>${board.bno}</td>
@@ -36,9 +29,9 @@
         <tr>
             <th>내용</th>
             <td colspan="3" class="content-box">
-                <c:if test="${not empty board.bip}">
+                <c:if test="${not empty board.bimage}">
                     <div class="img-box">
-                        <img src="/images/${board.bip}" alt="첨부 이미지">
+                        <img src="/upload/${board.bimage}" alt="첨부 이미지">
                     </div>
                 </c:if>
                 
@@ -50,10 +43,10 @@
     <div style="margin-top: 20px;">
         <button onclick="location.href='/board/list'">목록으로</button>
         
-        <c:if test="${sessionScope.member.mno == board.mno}">
-            <button onclick="location.href='/board/update?bno=${board.bno}'">수정</button>
-            <button onclick="deleteCheck(${board.bno})">삭제</button>
-        </c:if>
+        <c:if test="${sessionScope.loginUser.mno == board.mno || sessionScope.loginUser.mid == 'admin'}">
+    		<button onclick="location.href='/board/update?bno=${board.bno}'">수정</button>
+    		<button onclick="deleteCheck(${board.bno})">삭제</button>
+		</c:if>
     </div>
 
     <script>

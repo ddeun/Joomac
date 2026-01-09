@@ -14,7 +14,9 @@
             mname,
             mid,
             mpasswd,
+            mzipcode,
             maddr,
+            maddrdetail,
             mbirth,
             mgender,
             mtel,
@@ -34,7 +36,9 @@
             mname,
             mid,
             mpasswd,
+            mzipcode,
             maddr,
+            maddrdetail,
             mbirth,
             mgender,
             mtel,
@@ -46,7 +50,9 @@
             #{mname},
             #{mid},
             #{mpasswd},
+            #{mzipcode},
             #{maddr},
+            #{maddrdetail},
             #{mbirth},
             #{mgender},
             #{mtel},
@@ -79,17 +85,29 @@
         UPDATE member
         SET
             mname   = #{mname},
+            mzipcode   = #{mzipcode},
             maddr   = #{maddr},
+            maddrdetail   = #{maddrdetail},
             mtel    = #{mtel},
             memail  = #{memail}
         WHERE mno = #{mno}
     </update>
 
+		<!-- 비밀번호 확인 -->
+	<select id="passwordCheck"
+	        resultType="com.joomac.dto.MemberDTO">
+	    SELECT *
+	    FROM member
+	    WHERE mno = #{mno}
+	      AND mpasswd = #{mpasswd}
+	</select>
+	
+	
     <!-- 회원 삭제 -->
     <delete id="deleteMember"
             parameterType="int">
         DELETE FROM member
         WHERE mno = #{mno}
     </delete>
-
+  
 </mapper>
