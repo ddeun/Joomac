@@ -10,4 +10,5 @@ public interface NoticeDAO {
     int insertNotice(NoticeDTO dto);
     int updateNotice(NoticeDTO dto);
     int deleteNotice(int nno);
+    List<NoticeDTO> selectRecentNotices(int limit);
 }

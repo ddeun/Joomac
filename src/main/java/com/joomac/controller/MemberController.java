@@ -18,10 +18,7 @@ public class MemberController {
 
     @Autowired
     private MemberDAO memberDAO;
-
-    /* =====================
-       로그인 / 로그아웃
-       ===================== */
+    
 
     @GetMapping("/login")
     public String loginForm() {
@@ -48,10 +45,6 @@ public class MemberController {
         return "redirect:/";
     }
 
-    /* =====================
-       회원가입
-       ===================== */
-
     @GetMapping("/join")
     public String joinForm() {
         return "member/join";
@@ -68,10 +61,6 @@ public class MemberController {
         return "member/jusopopup";
     }
 
-    /* =====================
-       내정보
-       ===================== */
-
     @GetMapping("/mypage")
     public String myinfo(HttpSession session, Model model) {
 
@@ -85,10 +74,6 @@ public class MemberController {
 
         return "member/mypage";
     }
-
-    /* =====================
-       비밀번호 확인
-       ===================== */
 
     @GetMapping("/passwordcheck")
     public String passwordcheckForm(HttpSession session) {
@@ -126,11 +111,6 @@ public class MemberController {
 
         return "redirect:/member/update";
     }
-
-
-    /* =====================
-       회원정보 수정
-       ===================== */
 
     @GetMapping("/update")
     public String editForm(HttpSession session) {
