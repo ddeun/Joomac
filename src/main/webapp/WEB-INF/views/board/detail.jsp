@@ -43,10 +43,10 @@
     <div style="margin-top: 20px;">
         <button onclick="location.href='/board/list'">목록으로</button>
         
-        <c:if test="${sessionScope.mno == board.mno}">
-            <button onclick="location.href='/board/update?bno=${board.bno}'">수정</button>
-            <button onclick="deleteCheck(${board.bno})">삭제</button>
-        </c:if>
+        <c:if test="${sessionScope.loginUser.mno == board.mno || sessionScope.loginUser.mid == 'admin'}">
+    		<button onclick="location.href='/board/update?bno=${board.bno}'">수정</button>
+    		<button onclick="deleteCheck(${board.bno})">삭제</button>
+		</c:if>
     </div>
 
     <script>

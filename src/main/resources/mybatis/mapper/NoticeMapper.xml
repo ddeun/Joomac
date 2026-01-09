@@ -19,8 +19,41 @@
     </select>
 
     <insert id="insertNotice" parameterType="com.joomac.dto.NoticeDTO">
-        INSERT INTO notice (ntitle, ncontent, nimage)
-        VALUES (#{ntitle}, #{ncontent}, #{nimage})
+        INSERT INTO notice (
+        nno, 
+        ntitle, 
+        ncontent, 
+        nimage, 
+        ndate
+    ) VALUES (
+        notice_seq.NEXTVAL, 
+        #{ntitle}, 
+        #{ncontent}, 
+        #{nimage}, 
+        SYSDATE
+    )
     </insert>
+	
+	<update id="updateNotice" parameterType="com.joomac.dto.NoticeDTO">
+    	UPDATE notice
+    	SET 
+       		ntitle = #{ntitle},
+        	ncontent = #{ncontent},
+        	nimage = #{nimage}
+    	WHERE nno = #{nno}
+	</update>
 
+	<delete id="deleteNotice" parameterType="int">
+    	DELETE FROM notice WHERE nno = #{nno}
+	</delete>
+	
+	<select id="selectRecentNotices" parameterType="int" resultType="com.joomac.dto.NoticeDTO">
+	  SELECT * FROM (
+	    SELECT nno, ntitle, ndate
+	    FROM notice
+	    ORDER BY nno DESC
+	  )
+	  WHERE ROWNUM <![CDATA[<=]]> #{limit}
+	</select>
+	
 </mapper>
