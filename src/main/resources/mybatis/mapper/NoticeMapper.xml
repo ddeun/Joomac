@@ -47,11 +47,13 @@
     	DELETE FROM notice WHERE nno = #{nno}
 	</delete>
 	
-	<select id="selectRecentNotices" resultType="com.joomac.dto.NoticeDTO">
-		  SELECT nno, ntitle, ndate
-		  FROM notice
-		  ORDER BY nno DESC
-		  FETCH FIRST #{limit} ROWS ONLY
+	<select id="selectRecentNotices" parameterType="int" resultType="com.joomac.dto.NoticeDTO">
+	  SELECT * FROM (
+	    SELECT nno, ntitle, ndate
+	    FROM notice
+	    ORDER BY nno DESC
+	  )
+	  WHERE ROWNUM <![CDATA[<=]]> #{limit}
 	</select>
 	
 </mapper>
