@@ -6,60 +6,52 @@
 <mapper namespace="com.joomac.dao.ProductDAO">
 
     <select id="selectProductList" resultType="com.joomac.dto.ProductDTO">
-        SELECT 
-            pno, pname, pprice, palcohol, psize, pimage, pscore, pcategory, pcount, pdetail, ppairing,mno
+        SELECT *
         FROM product
         ORDER BY pno DESC
     </select>
 
     <select id="selectProductDetail" parameterType="int" resultType="com.joomac.dto.ProductDTO">
-          SELECT *
-          FROM product
-          WHERE pno = #{pno}
-   </select>
-   
-   <select id="selectByCategory"
-        parameterType="String"
-        resultType="com.joomac.dto.ProductDTO">
-    SELECT *
-    FROM product
-    WHERE pcategory = #{pcategory}
-    ORDER BY pno DESC
-   </select>
-   
+        SELECT *
+        FROM product
+        WHERE pno = #{pno}
+    </select>
+
+    <select id="selectByCategory" parameterType="String" resultType="com.joomac.dto.ProductDTO">
+        SELECT *
+        FROM product
+        WHERE pcategory = #{value}
+        ORDER BY pno DESC
+    </select>
+
     <insert id="insertProduct" parameterType="com.joomac.dto.ProductDTO">
         INSERT INTO product (
-            pno, pname, pprice, palcohol, psize, pimage, pcategory, pcount, pdetail, ppairing
+            pno, pname, pprice, palcohol, psize,
+            pimage, pcategory, pcount, pdetail, ppairing, ppairingImage
         ) VALUES (
             product_seq.NEXTVAL,
-            #{pname},
-            #{pprice},
-            #{palcohol},
-            #{psize},
-            #{pimage},
-            #{pcategory},
-            #{pcount},
-            #{pdetail},
-            #{ppairing})
+            #{pname}, #{pprice}, #{palcohol}, #{psize},
+            #{pimage}, #{pcategory}, #{pcount}, #{pdetail}, #{ppairing}, #{ppairingImage}
+        )
     </insert>
 
-   <update id="updateProduct" parameterType="com.joomac.dto.ProductDTO">
-       UPDATE product
-       SET
-           pname = #{pname},
-           pprice = #{pprice},
-           palcohol = #{palcohol},
-           psize = #{psize},
-           pimage = #{pimage},
-           pcategory = #{pcategory},
-           pcount = #{pcount},
-           pdetail = #{pdetail},
-              ppairing = #{ppairing}
-       WHERE pno = #{pno}
-   </update>
+    <update id="updateProduct" parameterType="com.joomac.dto.ProductDTO">
+        UPDATE product
+        SET pname = #{pname},
+            pprice = #{pprice},
+            palcohol = #{palcohol},
+            psize = #{psize},
+            pimage = #{pimage},
+            pcategory = #{pcategory},
+            pcount = #{pcount},
+            pdetail = #{pdetail},
+            ppairing = #{ppairing},
+            ppairingImage = #{ppairingImage}
+        WHERE pno = #{pno}
+    </update>
 
     <delete id="deleteProduct" parameterType="int">
-       DELETE FROM product
-       WHERE pno = #{pno}
-   </delete>
-</mapper> 
+        DELETE FROM product WHERE pno = #{pno}
+    </delete>
+
+</mapper>

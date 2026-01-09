@@ -18,7 +18,6 @@ public class MemberController {
 
     @Autowired
     private MemberDAO memberDAO;
-    
 
     @GetMapping("/login")
     public String loginForm() {
@@ -27,13 +26,8 @@ public class MemberController {
 
     @PostMapping("/login")
     public String login(MemberDTO dto, HttpSession session) {
-
         MemberDTO loginUser = memberDAO.login(dto);
-
-        if (loginUser == null) {
-            session.setAttribute("loginError", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            return "member/login";
-        }
+        session.setAttribute("mno", loginUser.getMno());
 
         session.setAttribute("loginUser", loginUser);
         return "redirect:/";
@@ -42,7 +36,7 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/main/main";
     }
 
     @GetMapping("/join")
@@ -55,119 +49,48 @@ public class MemberController {
         memberDAO.insertMember(dto);
         return "redirect:/member/login";
     }
-
+    
     @RequestMapping("/jusopopup")
     public String jusopopup() {
-        return "member/jusopopup";
+    	return "member/jusopopup";
     }
-
+    
     @GetMapping("/mypage")
-    public String myinfo(HttpSession session, Model model) {
-
+    public String mypage(HttpSession session, Model model) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+
         if (loginUser == null) {
             return "redirect:/member/login";
-        }
-
-        MemberDTO dto = memberDAO.selectMember(loginUser.getMno());
-        model.addAttribute("dto", dto);
-
-        return "member/mypage";
-    }
-
-    @GetMapping("/passwordcheck")
-    public String passwordcheckForm(HttpSession session) {
-
-        if (session.getAttribute("loginUser") == null) {
-            return "redirect:/member/login";
-        }
-
-        return "member/passwordcheck";
-    }
-
-    @PostMapping("/passwordcheck")
-    public String passwordcheck(MemberDTO dto, HttpSession session) {
-
-        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "redirect:/member/login";
-        }
-
-        MemberDTO result =
-            memberDAO.passwordCheck(loginUser.getMno(), dto.getMpasswd());
-
-        if (result == null) {
-            session.setAttribute("pwError", "비밀번호가 일치하지 않습니다.");
-            return "redirect:/member/passwordcheck";
-        }
-
-        session.setAttribute("pwChecked", true);
-
-        String nextAction = (String) session.getAttribute("nextAction");
-
-        if ("withdraw".equals(nextAction)) {
-            return "redirect:/member/withdraw";
-        }
-
-        return "redirect:/member/update";
-    }
-
-    @GetMapping("/update")
-    public String editForm(HttpSession session) {
-
-        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "redirect:/member/login";
-        }
-        
-        if (session.getAttribute("pwChecked") == null) {
-            return "redirect:/member/passwordcheck";
         }
 
         MemberDTO member = memberDAO.selectMember(loginUser.getMno());
-        session.setAttribute("edit", member);
+        model.addAttribute("member", member);
 
-        return "member/update";
+        return "member/mypage";
     }
-
+    
     @PostMapping("/update")
-    public String edit(MemberDTO dto, HttpSession session) {
-
+    public String update(MemberDTO dto, HttpSession session) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+
         if (loginUser == null) {
             return "redirect:/member/login";
         }
 
         dto.setMno(loginUser.getMno());
-        memberDAO.updateMember(dto);
-        
-        session.removeAttribute("pwChecked");
 
-        // ✅ 수정 후 내정보로 이동
+        memberDAO.updateMember(dto);
+
+        MemberDTO updatedUser = memberDAO.selectMember(loginUser.getMno());
+        session.setAttribute("loginUser", updatedUser);
+
         return "redirect:/member/mypage";
     }
     
-    @GetMapping("/withdraw")
-    public String withdrawForm(HttpSession session) {
-
-        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            return "redirect:/member/login";
-        }
-
-        session.setAttribute("nextAction", "withdraw");
-
-        if (session.getAttribute("pwChecked") == null) {
-            return "redirect:/member/passwordcheck";
-        }
-
-        return "member/withdraw";
-    }
-
     @PostMapping("/withdraw")
     public String withdraw(HttpSession session) {
-
         MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+
         if (loginUser == null) {
             return "redirect:/member/login";
         }
