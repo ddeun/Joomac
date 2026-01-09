@@ -13,6 +13,6 @@ public class MainController {
 
     @GetMapping("/") // 첫 접속 주소
     public String main(HttpSession session, Model model) {
-        return "main/main"; // views/main/main.jsp
+        return "/main"; // views/main.jsp
     }
 }
