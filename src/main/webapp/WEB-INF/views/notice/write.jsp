@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>공지사항 작성</h2>
-	<form action="/notice/write" method="post" enctype="multipart/form-data">
+	<form action="/notice/write">
 		<table>
 			<tr>
 				<th>제목</th>
@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<th>이미지</th>
-				<td><input type="file" name="uploadfile"></td>
+				<td><input type="file" name="nimage"></td>
 			</tr>
 		</table>
 		<br>

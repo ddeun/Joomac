@@ -32,12 +32,14 @@ public class CartController {
 
     @GetMapping("/list")
     public String cartList(HttpSession session, Model model) {
+        // 세션에서 로그인한 회원 정보 가져오기
         MemberDTO member = (MemberDTO) session.getAttribute("member");
         
         if(member == null) {
             return "redirect:/member/login";
         }
 
+        // 해당 회원의 장바구니 목록만 가져오기
         model.addAttribute("cartList", cartDAO.selectCartList(member.getMno()));
         return "cart/list";
     }

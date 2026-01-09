@@ -10,5 +10,4 @@ public interface BoardDAO {
     int updateBoard(BoardDTO dto);
     int deleteBoard(int bno);
     int updateViewCount(int bno);
-    List<BoardDTO> selectRecentBoards(int limit);
 }

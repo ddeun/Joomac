@@ -66,6 +66,7 @@ public class BoardController {
     	    String fileName = file.getOriginalFilename();
     	    dto.setBimage(fileName);
 
+    	    // 1. 경로 설정 (사용자 홈 디렉토리)
     	    String uploadPath = "C:\\joomac_upload\\"; 
 
     	    File saveFolder = new File(uploadPath);

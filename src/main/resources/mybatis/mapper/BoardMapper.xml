@@ -17,15 +17,6 @@
         FROM board
         WHERE bno = #{bno}
     </select>
-    
-    <select id="selectRecentBoards" parameterType="int" resultType="com.joomac.dto.BoardDTO">
-		  SELECT * FROM (
-		    SELECT bno, btitle, bdate
-		    FROM board
-		    ORDER BY bno DESC
-		  )
-		  WHERE ROWNUM <![CDATA[<=]]> #{limit}
-	</select>
 
     <insert id="insertBoard" parameterType="com.joomac.dto.BoardDTO">
         INSERT INTO board (
