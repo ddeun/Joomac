@@ -36,10 +36,9 @@
             <tr>
                 <td>이미지<br>
                     <c:if test="${not empty update.pimage}">
-                        <img src="${pageContext.request.contextPath}/images/${update.pimage}" 
-                             width="100" alt="기존 이미지"><br>
+                        <img src="/images/${update.pimage}" width="100" alt="기존 이미지"><br>
                     </c:if>
-                    새 이미지 업로드: <input type="file" name="uploadfile">
+                    새 이미지 업로드: <input type="file" name="uploadfile1">
                 </td>
             </tr>
             <tr>
@@ -65,8 +64,16 @@
                 </td>
             </tr>
             <tr>
-                <td>안주 추천<br>
+                <td>추천 안주<br>
                     <textarea name="ppairing" rows="2" cols="40">${update.ppairing}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>추천 안주 이미지<br>
+                    <c:if test="${not empty update.ppairingImage}">
+                        <img src="/images/${update.ppairingImage}" width="100" alt="기존 이미지"><br>
+                    </c:if>
+                    새 이미지 업로드: <input type="file" name="uploadfile2">
                 </td>
             </tr>
             <tr>

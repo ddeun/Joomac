@@ -20,9 +20,16 @@ public class ProductController {
     @Autowired
     private ProductDAO productDAO;
 
+    private final String uploadPath = "C:\\JSP\\Joomac\\src\\main\\resources\\static\\images\\";
+
     @GetMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("list", productDAO.selectProductList());
+    public String list(@RequestParam(value = "category", required = false) String category, Model model) {
+        if (category == null || category.isEmpty()) {
+            model.addAttribute("list", productDAO.selectProductList());
+        } else {
+            model.addAttribute("list", productDAO.selectByCategory(category));
+            model.addAttribute("category", category);
+        }
         return "product/list";
     }
 
@@ -39,61 +46,69 @@ public class ProductController {
     }
 
     @PostMapping("/write")
-    public String write(ProductDTO dto, @RequestParam("uploadfile") MultipartFile file) throws Exception {
-        if (file != null && !file.isEmpty()) {
-            String fileName = file.getOriginalFilename();
-            dto.setPimage(fileName);
+    public String write(ProductDTO dto,
+                        @RequestParam("uploadfile1") MultipartFile file1,
+                        @RequestParam("uploadfile2") MultipartFile file2) throws Exception {
 
-            String uploadPath = "C:\\Springboot\\Joomac\\src\\main\\resources\\static\\images\\";
-            File saveFolder = new File(uploadPath);
-            if (!saveFolder.exists()) {
-                saveFolder.mkdirs();
-            }
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
 
-            File saveFile = new File(uploadPath + fileName);
-            file.transferTo(saveFile);
+        if (!file1.isEmpty()) {
+            String filename1 = file1.getOriginalFilename();
+            File saveFile1 = new File(uploadDir, filename1);
+            file1.transferTo(saveFile1);
+            dto.setPimage(filename1);
+        }
+
+        if (!file2.isEmpty()) {
+            String filename2 = file2.getOriginalFilename();
+            File saveFile2 = new File(uploadDir, filename2);
+            file2.transferTo(saveFile2);
+            dto.setPpairingImage(filename2);
         }
 
         productDAO.insertProduct(dto);
         return "redirect:/product/list";
     }
 
+
     @GetMapping("/updateform")
-    public String updateform(@RequestParam("pno") int pno, Model model) {
-        ProductDTO dto = productDAO.selectProductDetail(pno);
-        model.addAttribute("update", dto);
+    public String updateForm(@RequestParam("pno") int pno, Model model) {
+        model.addAttribute("update", productDAO.selectProductDetail(pno));
         return "product/updateform";
     }
 
     @PostMapping("/update")
-    public String update(ProductDTO dto, @RequestParam("uploadfile") MultipartFile file) throws Exception {
-        if (file != null && !file.isEmpty()) {
-            // 새 이미지 업로드
-            String fileName = file.getOriginalFilename();
-            dto.setPimage(fileName);
+    public String update(ProductDTO dto,
+                         @RequestParam("uploadfile1") MultipartFile file1,
+                         @RequestParam("uploadfile2") MultipartFile file2) throws Exception {
 
-            String uploadPath = "C:\\Springboot\\Joomac\\src\\main\\resources\\static\\images\\";
-            File saveFolder = new File(uploadPath);
-            if (!saveFolder.exists()) {
-                saveFolder.mkdirs();
-            }
+        ProductDTO existing = productDAO.selectProductDetail(dto.getPno());
 
-            File saveFile = new File(uploadPath + fileName);
-            file.transferTo(saveFile);
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
 
-        } else {
-            // 새 이미지가 없으면 기존 이미지 유지
-            ProductDTO existing = productDAO.selectProductDetail(dto.getPno());
-            dto.setPimage(existing.getPimage());
+        if (!file1.isEmpty()) {
+            String filename1 = file1.getOriginalFilename();
+            File saveFile1 = new File(uploadDir, filename1);
+            file1.transferTo(saveFile1);
+            dto.setPimage(filename1);
+        }
+
+        if (!file2.isEmpty()) {
+            String filename2 = file2.getOriginalFilename();
+            File saveFile2 = new File(uploadDir, filename2);
+            file2.transferTo(saveFile2);
+            dto.setPpairingImage(filename2);
         }
 
         productDAO.updateProduct(dto);
         return "redirect:/product/detail?pno=" + dto.getPno();
     }
 
-    @RequestMapping("/delete")
+    @GetMapping("/delete")
     public String delete(@RequestParam("pno") int pno) {
         productDAO.deleteProduct(pno);
         return "redirect:/product/list";
     }
-} 
+}
