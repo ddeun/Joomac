@@ -1,6 +1,7 @@
 package com.joomac.dao;
 
 import java.util.List;
+
 import com.joomac.dto.ProductDTO;
 
 public interface ProductDAO {

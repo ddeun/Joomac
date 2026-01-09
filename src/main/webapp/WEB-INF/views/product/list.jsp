@@ -38,7 +38,7 @@
             </td>
             <td>
                 <a href="/product/detail?pno=${dto.pno}">상세</a> |
-                <a href="/product/edit?pno=${dto.pno}">수정</a> |
+                <a href="/product/updateform?pno=${dto.pno}">수정</a> |
                 <a href="/product/delete?pno=${dto.pno}" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
             </td>
         </tr>

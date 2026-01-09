@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="question">
+
+    <insert id="insertQuestion" parameterType="com.joomac.dto.QuestionDTO">
+        INSERT INTO question (
+            qno, qtitle, qcontent, mno, qdate
+        ) VALUES (
+            question_seq.NEXTVAL,
+            #{qtitle},
+            #{qcontent},
+            #{mno},
+            SYSDATE
+        )
+    </insert>
+
+    <select id="selectQuestionByMember" resultType="com.joomac.dto.QuestionDTO">
+        SELECT
+            qno,
+            qtitle,
+            qcontent,
+            mno,
+            qdate,
+            qstatus,
+            answer_date
+        FROM question
+        WHERE mno = #{mno}
+        ORDER BY qno DESC
+    </select>
+
+    <select id="selectQuestion" resultType="com.joomac.dto.QuestionDTO">
+        SELECT
+            qno,
+            qtitle,
+            qcontent,
+            mno,
+            qdate
+        FROM question
+        WHERE qno = #{qno}
+    </select>
+    
+    <select id="selectRecentQuestions" resultType="com.joomac.dto.QuestionDTO">
+		  SELECT * FROM (
+		    SELECT qno, qtitle, qdate, qstatus
+		    FROM question
+		    ORDER BY qno DESC
+		  )
+		  WHERE ROWNUM &lt;= #{limit}
+	</select>
+		
+	<select id="selectRecentQuestionsByMember" resultType="com.joomac.dto.QuestionDTO">
+		  SELECT * FROM (
+		    SELECT qno, qtitle, qdate, qstatus
+		    FROM question
+		    WHERE mno = #{mno}
+		    ORDER BY qno DESC
+		  )
+		  WHERE ROWNUM &lt;= #{limit}
+	</select>
+
+	<select id="selectAllQuestion" resultType="com.joomac.dto.QuestionDTO">
+	  	SELECT qno, qtitle, qcontent, mno, qdate, qstatus, answer_date
+	  	FROM question
+	  	ORDER BY qno DESC
+	</select>
+
+    <update id="updateQuestion" parameterType="com.joomac.dto.QuestionDTO">
+        UPDATE question
+        SET
+            qtitle = #{qtitle},
+            qcontent = #{qcontent}
+        WHERE qno = #{qno}
+    </update>
+    
+    <update id="updateAnswerStatus">
+		  UPDATE question
+		  SET qstatus = '답변완료',
+		      answer_date = SYSDATE
+		  WHERE qno = #{qno}
+	</update>
+
+    <delete id="deleteQuestion">
+        DELETE FROM question WHERE qno = #{qno}
+    </delete>
+
+</mapper>
