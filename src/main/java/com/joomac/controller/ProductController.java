@@ -17,7 +17,7 @@ public class ProductController {
     @Autowired
     private ProductDAO productDAO;
 
-    private final String uploadPath = "C:\\JSP\\Joomac\\src\\main\\resources\\static\\images\\";
+    private final String uploadPath = "C:\\Springboot\\Joomac\\src\\main\\resources\\static\\images\\";
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "category", required = false) String category, Model model) {
